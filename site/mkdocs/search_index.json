@@ -1,0 +1,54 @@
+{
+    "docs": [
+        {
+            "location": "/", 
+            "text": "Welcome to MkDocs\n\n\nFor full documentation visit \nmkdocs.org\n.\n\n\nCommands\n\n\n\n\nmkdocs new [dir-name]\n - Create a new project.\n\n\nmkdocs serve\n - Start the live-reloading docs server.\n\n\nmkdocs build\n - Build the documentation site.\n\n\nmkdocs help\n - Print this help message.\n\n\n\n\nProject layout\n\n\nmkdocs.yml    # The configuration file.\ndocs/\n    index.md  # The documentation homepage.\n    ...       # Other markdown pages, images and other files.", 
+            "title": "Home"
+        }, 
+        {
+            "location": "/#welcome-to-mkdocs", 
+            "text": "For full documentation visit  mkdocs.org .", 
+            "title": "Welcome to MkDocs"
+        }, 
+        {
+            "location": "/#commands", 
+            "text": "mkdocs new [dir-name]  - Create a new project.  mkdocs serve  - Start the live-reloading docs server.  mkdocs build  - Build the documentation site.  mkdocs help  - Print this help message.", 
+            "title": "Commands"
+        }, 
+        {
+            "location": "/#project-layout", 
+            "text": "mkdocs.yml    # The configuration file.\ndocs/\n    index.md  # The documentation homepage.\n    ...       # Other markdown pages, images and other files.", 
+            "title": "Project layout"
+        }, 
+        {
+            "location": "/class/utility functions/Overview/", 
+            "text": "Overview\n\n\n\n\nutility\n\n\nclearUnnecessaryChar()\n\n\nfindBusinessType()\n\n\ngetBusinessStructure()\n\n\ngetMonthFullName()\n\n\ngetMonthShortName()", 
+            "title": "Overview"
+        }, 
+        {
+            "location": "/class/utility functions/clearUnnecessaryChar/", 
+            "text": "clearUnnecessaryChar()\n\n\nDescription :\n\n\n\n\nxxx\n\n\n\n\nCode :\n\n\n/**\n*/\npublic static function clearUnnecessaryChar(\n$texts)\n{\n    $replace = function(\n$text)\n    {\n        $text = trim($text);\n        $text = str_replace(array(chr(9), chr(10), chr(13), chr(160)), '', $text);\n        $text = preg_replace(\n#\\s{2,}#\n, ' ', $text);\n    };\n\n    if(is_array($texts))\n    {\n        foreach ($texts as $name =\n \n$text)\n        {\n            $replace($text);\n        }   \n    }\n    else\n    {\n        $replace($texts);\n    }\n}\n\n\n\n\nExample :\n\n\n\n\nExample 1:\n\n\n\n\n\n\n\n\n\nExample 2:\n\n\n\n\n\n\n\nNotes :", 
+            "title": "clearUnnecessaryChar"
+        }, 
+        {
+            "location": "/class/utility functions/findBusinessType/", 
+            "text": "findBusinessType()\n\n\nDescription :\n\n\n\n\nxxx\n\n\n\n\nCode :\n\n\n/**\n* Use to find Business Type and Smart Shop by filter\n* @param String $fieldNoneEmpty \n* @param String $filter \n* @return Mixed $businessTypes \n*/\npublic static function findBusinessType($fieldNoneEmpty, $filter)\n{\n    $businessTypes = array();\n    $sql = \nSELECT bu.BusinessType FROM (\n        SELECT IF(sbu.OLMTrade = 'Y', 'Trade', 'OLM') AS BusinessType\n            FROM smis_user AS su \n                INNER JOIN smis_businessunit AS sbu ON sbu.BusUnitID = su.BusUnitID \n                INNER JOIN smis_organise AS so ON so.BusOrgan = sbu.BusOrgan \n                    WHERE \n . $fieldNoneEmpty . \n!='' \n . $filter . \n) AS bu\n                        GROUP BY bu.BusinessType\n;\n    $result = mysql_query($sql);\n\n    while($row = mysql_fetch_array($result))\n    {\n        $businessTypes[] = $row['BusinessType'];\n    }\n\n    return $businessTypes;\n}\n\n\n\n\nExample :\n\n\n\n\nExample 1:\n\n\n\n\n\n\n\n\n\nExample 2:\n\n\n\n\n\n\n\nNotes :", 
+            "title": "findBusinessType"
+        }, 
+        {
+            "location": "/class/utility functions/getBusinessStructure/", 
+            "text": "clearUnnecessaryChar()\n\n\nDescription :\n\n\n\n\nxxx\n\n\n\n\nCode :\n\n\n/**\n*/\npublic static function getBusinessStructure($bustype, $options)\n{\n    $sql = static::getBusinessStructureSql($bustype, $options);\n    $num = 0;\n    $result = mysql_query($sql) or die( mysql_error() );\n    while($data = mysql_fetch_array($result))\n    {\n        for($i=0;$i\nmysql_num_fields($result);$i++)\n        {\n            $fieldName = mysql_field_name($result,$i);\n            $structure[$num][$fieldName] = $data[$fieldName];\n        }\n        $num++;\n    }\n\n    return $structure;\n}\n\n\n\n\nExample :\n\n\n\n\nExample 1:\n\n\n\n\n\n\n\n\n\nExample 2:\n\n\n\n\n\n\n\nNotes :", 
+            "title": "getBusinessStructure"
+        }, 
+        {
+            "location": "/class/utility functions/getMonthFullName/", 
+            "text": "getMonthFullName()\n\n\nDescription :\n\n\n\n\n\u0e43\u0e0a\u0e49\u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a\u0e14\u0e36\u0e07\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e0a\u0e37\u0e48\u0e2d\u0e40\u0e14\u0e37\u0e2d\u0e19\u0e41\u0e1a\u0e1a\u0e40\u0e15\u0e47\u0e21\n\n\n\n\nCode :\n\n\n/**\n* @param $month int Number of month\n*/\npublic static function getMonthFullName($month)\n{\n    $months = array('January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', \n        'October', 'November', 'December');\n\n    if(empty($month))\n        return $months;\n    else\n        return $months[$month - 1];\n}\n\n\n\n\nExample :\n\n\n\n\nExample 1:\n\n\n\n\nutility::getMonthFullName();\n\n/* output\n array('January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', \n        'October', 'November', 'December')\n\n\n\n\n\n\nExample 2:\n\n\n\n\nutility::getMonthFullName('1');\n\n/* output\n January\n\n\n\n\nNotes :", 
+            "title": "getMonthFullName"
+        }, 
+        {
+            "location": "/class/utility functions/getMonthShortName/", 
+            "text": "getMonthShortName()\n\n\nDescription :\n\n\n\n\n\u0e43\u0e0a\u0e49\u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a\u0e14\u0e36\u0e07\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e0a\u0e37\u0e48\u0e2d\u0e40\u0e14\u0e37\u0e2d\u0e19\u0e41\u0e1a\u0e1a\u0e22\u0e48\u0e2d\n\n\n\n\nCode :\n\n\n/**\n* @param $month int Number of month\n*/\npublic static function getMonthShortName($month = '')\n{\n    $months = array('JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC');\n\n    if(empty($month))\n        return $months;\n    else\n        return $months[$month - 1];\n}\n\n\n\n\nExample :\n\n\n\n\nExample 1:\n\n\n\n\nutility::getMonthShortName();\n\n/* output\n array('JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC')\n\n\n\n\n\n\nExample 2:\n\n\n\n\nutility::getMonthShortName('1');\n\n/* output\n JAN\n\n\n\n\nNotes :", 
+            "title": "getMonthShortName"
+        }
+    ]
+}
