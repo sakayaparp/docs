@@ -1,6 +1,8 @@
 # docs
 
-##### commands
+##### * Install [mkdocs](http://www.mkdocs.org/#installation)
+
+##### * Commands
 
 Create new project :
 ```
